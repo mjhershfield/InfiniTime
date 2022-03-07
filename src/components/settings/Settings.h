@@ -3,6 +3,7 @@
 #include <bitset>
 #include "components/brightness/BrightnessController.h"
 #include "components/fs/FS.h"
+#include <lvgl/src/lv_misc/lv_color.h>
 
 namespace Pinetime {
   namespace Controllers {
@@ -35,6 +36,18 @@ namespace Pinetime {
         Magenta,
         Purple,
         Orange
+      };
+
+      struct ColorScheme {
+        lv_color_t background = lv_color_hex(0x000000);
+        lv_color_t accentPrimary = lv_color_hex(0xFFA500);
+        lv_color_t accentSecondary = lv_color_hex(0x00FFE7);
+        lv_color_t buttonDefault = lv_color_hex(0x111111);
+        lv_color_t buttonDisabled = lv_color_hex(0xAEAEAE);
+        lv_color_t success = lv_color_hex(0x008000);
+        lv_color_t pause = lv_color_hex(0xFFFF00);
+        lv_color_t stop = lv_color_hex(0xFF0000);
+        lv_color_t textDefault = lv_color_hex(0xFFFFFF);
       };
       struct PineTimeStyle {
         Colors ColorTime = Colors::Teal;
@@ -92,6 +105,42 @@ namespace Pinetime {
       };
       Colors GetPTSColorBG() const {
         return settings.PTS.ColorBG;
+      };
+
+      lv_color_t getBackgroundColor() const {
+        return settings.colorScheme.background;
+      };
+
+      lv_color_t getAccentPrimaryColor() const {
+        return settings.colorScheme.accentPrimary;
+      };
+
+      lv_color_t getAccentSecondaryColor() const {
+        return settings.colorScheme.accentSecondary;
+      };
+
+      lv_color_t getButtonDefaultColor() const {
+        return settings.colorScheme.buttonDefault;
+      };
+
+      lv_color_t getButtonDisabledColor() const {
+        return settings.colorScheme.buttonDisabled;
+      };
+
+      lv_color_t getSuccessColor() const {
+        return settings.colorScheme.success;
+      };
+
+      lv_color_t getPauseColor() const {
+        return settings.colorScheme.pause;
+      };
+
+      lv_color_t getStopColor() const {
+        return settings.colorScheme.stop;
+      };
+
+      lv_color_t getTextDefaultColor() const {
+        return settings.colorScheme.textDefault;
       };
 
       void SetAppMenu(uint8_t menu) {
@@ -213,7 +262,7 @@ namespace Pinetime {
     private:
       Pinetime::Controllers::FS& fs;
 
-      static constexpr uint32_t settingsVersion = 0x0003;
+      static constexpr uint32_t settingsVersion = 0x0004;
       struct SettingsData {
         uint32_t version = settingsVersion;
         uint32_t stepsGoal = 10000;
@@ -226,6 +275,8 @@ namespace Pinetime {
         ChimesOption chimesOption = ChimesOption::None;
 
         PineTimeStyle PTS;
+
+        ColorScheme colorScheme;
 
         std::bitset<4> wakeUpMode {0};
         uint16_t shakeWakeThreshold = 150;
