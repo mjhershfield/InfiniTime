@@ -40,14 +40,17 @@ namespace Pinetime {
 
       struct ColorScheme {
         lv_color_t background = lv_color_hex(0x000000);
-        lv_color_t accentPrimary = lv_color_hex(0xFFA500);
-        lv_color_t accentSecondary = lv_color_hex(0x00FFE7);
-        lv_color_t buttonDefault = lv_color_hex(0x111111);
-        lv_color_t buttonDisabled = lv_color_hex(0xAEAEAE);
-        lv_color_t success = lv_color_hex(0x008000);
-        lv_color_t pause = lv_color_hex(0xFFFF00);
-        lv_color_t stop = lv_color_hex(0xFF0000);
-        lv_color_t textDefault = lv_color_hex(0xFFFFFF);
+        lv_color_t surface = lv_color_hex(0xAEAEAE);
+        lv_color_t primary = lv_color_hex(0xFF6500);
+        lv_color_t primaryVariant = lv_color_hex(0x008000);
+        lv_color_t secondary = lv_color_hex(0x00FFE7);
+        lv_color_t secondaryVariant = lv_color_hex(0x00FFA7);
+        lv_color_t error = lv_color_hex(0xFF0000);
+        lv_color_t onPrimary = lv_color_hex(0xFFFFFF);
+        lv_color_t onSecondary = lv_color_hex(0xFFFFFF);
+        lv_color_t onBackground = lv_color_hex(0xFFFFFF);
+        lv_color_t onSurface = lv_color_hex(0xFFFFFF);
+        lv_color_t onError = lv_color_hex(0xFFFFFF);
       };
       struct PineTimeStyle {
         Colors ColorTime = Colors::Teal;
@@ -111,36 +114,48 @@ namespace Pinetime {
         return settings.colorScheme.background;
       };
 
-      lv_color_t getAccentPrimaryColor() const {
-        return settings.colorScheme.accentPrimary;
+      lv_color_t getSurfaceColor() const {
+        return settings.colorScheme.surface;
       };
 
-      lv_color_t getAccentSecondaryColor() const {
-        return settings.colorScheme.accentSecondary;
+      lv_color_t getPrimaryColor() const {
+        return settings.colorScheme.primary;
       };
 
-      lv_color_t getButtonDefaultColor() const {
-        return settings.colorScheme.buttonDefault;
+      lv_color_t getPrimaryVariantColor() const {
+        return settings.colorScheme.primaryVariant;
       };
 
-      lv_color_t getButtonDisabledColor() const {
-        return settings.colorScheme.buttonDisabled;
+      lv_color_t getSecondaryColor() const {
+        return settings.colorScheme.secondary;
       };
 
-      lv_color_t getSuccessColor() const {
-        return settings.colorScheme.success;
+      lv_color_t getSecondaryVariantColor() const {
+        return settings.colorScheme.secondaryVariant;
       };
 
-      lv_color_t getPauseColor() const {
-        return settings.colorScheme.pause;
+      lv_color_t getErrorColor() const {
+        return settings.colorScheme.error;
       };
 
-      lv_color_t getStopColor() const {
-        return settings.colorScheme.stop;
+      lv_color_t getOnPrimaryColor() const {
+        return settings.colorScheme.onPrimary;
       };
 
-      lv_color_t getTextDefaultColor() const {
-        return settings.colorScheme.textDefault;
+      lv_color_t getOnSecondaryColor() const {
+        return settings.colorScheme.onSecondary;
+      };
+
+      lv_color_t getOnBackgroundColor() const {
+        return settings.colorScheme.onBackground;
+      };
+
+      lv_color_t getOnSurfaceColor() const {
+        return settings.colorScheme.onSurface;
+      };
+
+      lv_color_t getOnErrorColor() const {
+        return settings.colorScheme.onError;
       };
 
       void SetAppMenu(uint8_t menu) {
