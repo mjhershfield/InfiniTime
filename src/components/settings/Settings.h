@@ -38,11 +38,13 @@ namespace Pinetime {
         Orange
       };
 
+// TODO: WHEN DONE WITH TESTING, MOVE COLORSCHEME STRUCT INTO SETTINGSDATA
+
       struct ColorScheme {
         lv_color_t background = lv_color_hex(0x000000);
         lv_color_t surface = lv_color_hex(0xAEAEAE);
-        lv_color_t primary = lv_color_hex(0xFF6500);
-        lv_color_t primaryVariant = lv_color_hex(0x008000);
+        lv_color_t primary = lv_color_hex(0xFF9800);
+        lv_color_t primaryVariant = lv_color_hex(0xEF6C00);
         lv_color_t secondary = lv_color_hex(0x00FFE7);
         lv_color_t secondaryVariant = lv_color_hex(0x00FFA7);
         lv_color_t error = lv_color_hex(0xFF0000);
@@ -111,51 +113,51 @@ namespace Pinetime {
       };
 
       lv_color_t getBackgroundColor() const {
-        return settings.colorScheme.background;
+        return colorScheme.background;
       };
 
       lv_color_t getSurfaceColor() const {
-        return settings.colorScheme.surface;
+        return colorScheme.surface;
       };
 
       lv_color_t getPrimaryColor() const {
-        return settings.colorScheme.primary;
+        return colorScheme.primary;
       };
 
       lv_color_t getPrimaryVariantColor() const {
-        return settings.colorScheme.primaryVariant;
+        return colorScheme.primaryVariant;
       };
 
       lv_color_t getSecondaryColor() const {
-        return settings.colorScheme.secondary;
+        return colorScheme.secondary;
       };
 
       lv_color_t getSecondaryVariantColor() const {
-        return settings.colorScheme.secondaryVariant;
+        return colorScheme.secondaryVariant;
       };
 
       lv_color_t getErrorColor() const {
-        return settings.colorScheme.error;
+        return colorScheme.error;
       };
 
       lv_color_t getOnPrimaryColor() const {
-        return settings.colorScheme.onPrimary;
+        return colorScheme.onPrimary;
       };
 
       lv_color_t getOnSecondaryColor() const {
-        return settings.colorScheme.onSecondary;
+        return colorScheme.onSecondary;
       };
 
       lv_color_t getOnBackgroundColor() const {
-        return settings.colorScheme.onBackground;
+        return colorScheme.onBackground;
       };
 
       lv_color_t getOnSurfaceColor() const {
-        return settings.colorScheme.onSurface;
+        return colorScheme.onSurface;
       };
 
       lv_color_t getOnErrorColor() const {
-        return settings.colorScheme.onError;
+        return colorScheme.onError;
       };
 
       void SetAppMenu(uint8_t menu) {
@@ -277,7 +279,7 @@ namespace Pinetime {
     private:
       Pinetime::Controllers::FS& fs;
 
-      static constexpr uint32_t settingsVersion = 0x0004;
+      static constexpr uint32_t settingsVersion = 0x0003;
       struct SettingsData {
         uint32_t version = settingsVersion;
         uint32_t stepsGoal = 10000;
@@ -291,12 +293,12 @@ namespace Pinetime {
 
         PineTimeStyle PTS;
 
-        ColorScheme colorScheme;
-
         std::bitset<4> wakeUpMode {0};
         uint16_t shakeWakeThreshold = 150;
         Controllers::BrightnessController::Levels brightLevel = Controllers::BrightnessController::Levels::Medium;
       };
+
+      ColorScheme colorScheme;
 
       SettingsData settings;
       bool settingsChanged = false;
