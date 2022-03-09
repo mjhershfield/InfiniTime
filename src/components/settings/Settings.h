@@ -42,7 +42,7 @@ namespace Pinetime {
 
       struct ColorScheme {
         lv_color_t background = lv_color_hex(0x000000);
-        lv_color_t surface = lv_color_hex(0xAEAEAE);
+        lv_color_t surface = lv_color_hex(0x111111);
         lv_color_t primary = lv_color_hex(0xFF9800);
         lv_color_t primaryVariant = lv_color_hex(0xEF6C00);
         lv_color_t secondary = lv_color_hex(0x00FFE7);
