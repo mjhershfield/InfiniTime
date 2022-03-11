@@ -38,8 +38,6 @@ namespace Pinetime {
         Orange
       };
 
-// TODO: WHEN DONE WITH TESTING, MOVE COLORSCHEME STRUCT INTO SETTINGSDATA
-
       struct ColorScheme {
         lv_color_t background = lv_color_hex(0x000000);
         lv_color_t surface = lv_color_hex(0x111111);
@@ -298,6 +296,7 @@ namespace Pinetime {
         Controllers::BrightnessController::Levels brightLevel = Controllers::BrightnessController::Levels::Medium;
       };
 
+      // TODO: WHEN DONE WITH TESTING, MOVE COLORSCHEME STRUCT INTO SETTINGSDATA
       ColorScheme colorScheme;
 
       SettingsData settings;
