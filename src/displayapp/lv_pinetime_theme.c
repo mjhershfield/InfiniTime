@@ -234,12 +234,14 @@ void pt_update_theme(lv_color_t color_primary,
 
   style_init_reset(&style_sw_bg);
   lv_style_set_bg_opa(&style_sw_bg, LV_STATE_DEFAULT, LV_OPA_COVER);
-  lv_style_set_bg_color(&style_sw_bg, LV_STATE_DEFAULT, LV_PINETIME_BLUE);
   lv_style_set_radius(&style_sw_bg, LV_STATE_DEFAULT, LV_RADIUS_CIRCLE);
+  lv_style_set_bg_color(&style_sw_bg, LV_STATE_DEFAULT, LV_PINETIME_BLUE);
 
   style_init_reset(&style_sw_indic);
   lv_style_set_bg_opa(&style_sw_indic, LV_STATE_DEFAULT, LV_OPA_COVER);
   lv_style_set_bg_color(&style_sw_indic, LV_STATE_DEFAULT, LV_COLOR_GREEN);
+  lv_style_set_bg_color(&style_sw_indic, PT_STATE_PRIMARY, color_primary);
+  lv_style_set_bg_color(&style_sw_indic, PT_STATE_SECONDARY, color_secondary);
 
   style_init_reset(&style_sw_knob);
   lv_style_set_bg_opa(&style_sw_knob, LV_STATE_DEFAULT, LV_OPA_COVER);
@@ -268,11 +270,13 @@ void pt_update_theme(lv_color_t color_primary,
 
   style_init_reset(&style_arc_indic);
   lv_style_set_line_color(&style_arc_indic, LV_STATE_DEFAULT, LV_PINETIME_BLUE);
+  lv_style_set_line_color(&style_arc_indic, PT_STATE_PRIMARY, color_primary);
+  lv_style_set_line_color(&style_arc_indic, PT_STATE_SECONDARY, color_secondary);
   lv_style_set_line_width(&style_arc_indic, LV_STATE_DEFAULT, LV_DPX(25));
   lv_style_set_line_rounded(&style_arc_indic, LV_STATE_DEFAULT, true);
 
   style_init_reset(&style_arc_bg);
-  lv_style_set_line_color(&style_arc_bg, LV_STATE_DEFAULT, LV_PINETIME_GRAY);
+  lv_style_set_line_color(&style_arc_bg, LV_STATE_DEFAULT, color_btn);
   lv_style_set_line_width(&style_arc_bg, LV_STATE_DEFAULT, LV_DPX(25));
   lv_style_set_line_rounded(&style_arc_bg, LV_STATE_DEFAULT, true);
   lv_style_set_pad_all(&style_arc_bg, LV_STATE_DEFAULT, LV_DPX(5));
@@ -338,6 +342,7 @@ void pt_update_theme(lv_color_t color_primary,
   lv_style_set_outline_opa(&style_cb_bullet, LV_STATE_FOCUSED, LV_OPA_TRANSP);
   lv_style_set_radius(&style_cb_bullet, LV_STATE_DEFAULT, LV_DPX(4));
   lv_style_set_pattern_recolor(&style_cb_bullet, LV_STATE_CHECKED, LV_COLOR_WHITE);
+  lv_style_set_bg_color(&style_cb_bullet, LV_STATE_DEFAULT, color_btn);
   lv_style_set_pad_left(&style_cb_bullet, LV_STATE_DEFAULT, LV_DPX(8));
   lv_style_set_pad_right(&style_cb_bullet, LV_STATE_DEFAULT, LV_DPX(8));
   lv_style_set_pad_top(&style_cb_bullet, LV_STATE_DEFAULT, LV_DPX(8));
