@@ -26,7 +26,7 @@ SettingColor::SettingColor(Pinetime::Applications::DisplayApp* app, Pinetime::Co
   lv_obj_align(elementColor, lv_scr_act(), LV_ALIGN_CENTER, 0, -80);
 
   elementTint = lv_bar_create(lv_scr_act(), nullptr);
-  lv_bar_set_range(elementTint, 0, 9);
+  lv_bar_set_range(elementTint, 0, 6);
   lv_bar_set_value(elementTint, getCurrentTint(), LV_ANIM_OFF);
   lv_obj_set_state(elementTint, PT_STATE_PRIMARY);
   lv_obj_set_style_local_radius(elementTint, LV_BAR_PART_BG, LV_STATE_DEFAULT, 15);
@@ -209,9 +209,9 @@ void SettingColor::UpdateSelected(lv_obj_t* object, lv_event_t event) {
     }
      if (object == btnReset) {
       colorScheme.primary = Controllers::Settings::Colors::Orange;
-      colorScheme.primaryTint = 4;
+      colorScheme.primaryTint = 3;
       colorScheme.secondary = Controllers::Settings::Colors::Cyan;
-      colorScheme.secondaryTint = 7;
+      colorScheme.secondaryTint = 3;
       colorScheme.surface = Controllers::Settings::Colors::Grey;
       colorScheme.surfaceTint = 0;
       colorScheme.background = Controllers::Settings::Colors::Black;
@@ -261,7 +261,7 @@ void Pinetime::Applications::Screens::SettingColor::setCurrentColor(Pinetime::Co
 void Pinetime::Applications::Screens::SettingColor::nextColor() {
   auto colorAsInt = static_cast<uint8_t>(getCurrentColor());
   setCurrentColor(static_cast<Controllers::Settings::Colors>((colorAsInt + 1) % 21));
-  setCurrentTint(4);
+  setCurrentTint(3);
 }
 
 void Pinetime::Applications::Screens::SettingColor::prevColor() {
@@ -271,7 +271,7 @@ void Pinetime::Applications::Screens::SettingColor::prevColor() {
   } else {
     setCurrentColor(static_cast<Controllers::Settings::Colors>((colorAsInt - 1) % 21));
   }
-  setCurrentTint(4);
+  setCurrentTint(3);
 }
 
 uint8_t Pinetime::Applications::Screens::SettingColor::getCurrentTint() {
@@ -316,7 +316,7 @@ void Pinetime::Applications::Screens::SettingColor::setCurrentTint(uint8_t tint)
 
 void Pinetime::Applications::Screens::SettingColor::nextTint() {
   uint8_t currentTint = getCurrentTint();
-  if (currentTint < 9) {
+  if (currentTint < 6) {
     setCurrentTint(currentTint + 1);
   }
 }

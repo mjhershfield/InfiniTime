@@ -47,10 +47,10 @@ namespace Pinetime {
         int8_t backgroundTint = 0;
         Colors surface = Colors::Grey;
         int8_t surfaceTint = 0;
-        Colors primary = Colors::Orange;
-        int8_t primaryTint = 4;
+        Colors primary = Colors::Amber;
+        int8_t primaryTint = 3;
         Colors secondary = Colors::Cyan;
-        int8_t secondaryTint = 7;
+        int8_t secondaryTint = 3;
       };
 
       struct PineTimeStyle {
