@@ -1,4 +1,4 @@
-#include "SettingColor.h"
+#include "SettingColorPicker.h"
 #include <lvgl/lvgl.h>
 #include <displayapp/Colors.h>
 #include "displayapp/DisplayApp.h"
@@ -9,15 +9,15 @@ using namespace Pinetime::Applications::Screens;
 
 namespace {
   static void event_handler(lv_obj_t* obj, lv_event_t event) {
-    SettingColor* screen = static_cast<SettingColor*>(obj->user_data);
+    SettingColorPicker* screen = static_cast<SettingColorPicker*>(obj->user_data);
     screen->UpdateSelected(obj, event);
   }
 }
 
-SettingColor::SettingColor(Pinetime::Applications::DisplayApp* app, Pinetime::Controllers::Settings& settingsController)
+SettingColorPicker::SettingColorPicker(Pinetime::Applications::DisplayApp* app, Pinetime::Controllers::Settings& settingsController)
   : Screen(app), settingsController {settingsController} {
 
-  colorScheme = settingsController.getColorScheme();
+  colorScheme = settingsController.getTheme();
 
   elementColor = lv_obj_create(lv_scr_act(), nullptr);
   lv_obj_set_state(elementColor, PT_STATE_PRIMARY);
@@ -106,14 +106,14 @@ SettingColor::SettingColor(Pinetime::Applications::DisplayApp* app, Pinetime::Co
 
 }
 
-SettingColor::~SettingColor() {
-  settingsController.setColorScheme(colorScheme);
+SettingColorPicker::~SettingColorPicker() {
+  settingsController.setTheme(colorScheme);
   lv_obj_clean(lv_scr_act());
   settingsController.SaveSettings();
 }
 
 
-void SettingColor::updateUI() {
+void SettingColorPicker::updateUI() {
   lv_obj_set_style_local_bg_color(elementColor, LV_LABEL_PART_MAIN, PT_STATE_PRIMARY, Convert(colorScheme.primary, colorScheme.primaryTint));
   lv_obj_set_style_local_bg_color(elementColor, LV_LABEL_PART_MAIN, PT_STATE_SECONDARY, Convert(colorScheme.secondary, colorScheme.secondaryTint));
   lv_obj_set_style_local_bg_color(elementColor, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, Convert(colorScheme.surface, colorScheme.surfaceTint));
@@ -130,7 +130,7 @@ void SettingColor::updateUI() {
 
 }
 
-void SettingColor::setPage(Page newPage) {
+void SettingColorPicker::setPage(Page newPage) {
   switch (newPage) {
     case Page::Primary:
       lv_obj_set_state(elementColor, PT_STATE_PRIMARY);
@@ -158,7 +158,7 @@ void SettingColor::setPage(Page newPage) {
 
 }
 
-void SettingColor::UpdateSelected(lv_obj_t* object, lv_event_t event) {
+void SettingColorPicker::UpdateSelected(lv_obj_t* object, lv_event_t event) {
 
   if (event == LV_EVENT_CLICKED) {
     if (object == btnNextColor) {
@@ -222,7 +222,7 @@ void SettingColor::UpdateSelected(lv_obj_t* object, lv_event_t event) {
   }
 }
 
-Pinetime::Controllers::Settings::Colors Pinetime::Applications::Screens::SettingColor::getCurrentColor() {
+Pinetime::Controllers::Settings::Colors Pinetime::Applications::Screens::SettingColorPicker::getCurrentColor() {
   switch (currentPage) {
   case Page::Primary:
     return colorScheme.primary;
@@ -241,7 +241,7 @@ Pinetime::Controllers::Settings::Colors Pinetime::Applications::Screens::Setting
   }
 }
 
-void Pinetime::Applications::Screens::SettingColor::setCurrentColor(Pinetime::Controllers::Settings::Colors color) {
+void Pinetime::Applications::Screens::SettingColorPicker::setCurrentColor(Pinetime::Controllers::Settings::Colors color) {
   switch (currentPage) {
   case Page::Primary:
     colorScheme.primary = color;
@@ -258,13 +258,13 @@ void Pinetime::Applications::Screens::SettingColor::setCurrentColor(Pinetime::Co
   }
 }
 
-void Pinetime::Applications::Screens::SettingColor::nextColor() {
+void Pinetime::Applications::Screens::SettingColorPicker::nextColor() {
   auto colorAsInt = static_cast<uint8_t>(getCurrentColor());
   setCurrentColor(static_cast<Controllers::Settings::Colors>((colorAsInt + 1) % 21));
   setCurrentTint(3);
 }
 
-void Pinetime::Applications::Screens::SettingColor::prevColor() {
+void Pinetime::Applications::Screens::SettingColorPicker::prevColor() {
   auto colorAsInt = static_cast<uint8_t>(getCurrentColor());
   if (colorAsInt == 0) {
     setCurrentColor(Pinetime::Controllers::Settings::Colors::White);
@@ -274,7 +274,7 @@ void Pinetime::Applications::Screens::SettingColor::prevColor() {
   setCurrentTint(3);
 }
 
-uint8_t Pinetime::Applications::Screens::SettingColor::getCurrentTint() {
+uint8_t Pinetime::Applications::Screens::SettingColorPicker::getCurrentTint() {
   switch (currentPage) {
   case Page::Primary:
     return colorScheme.primaryTint;
@@ -293,7 +293,7 @@ uint8_t Pinetime::Applications::Screens::SettingColor::getCurrentTint() {
   }
 }
 
-void Pinetime::Applications::Screens::SettingColor::setCurrentTint(uint8_t tint) {
+void Pinetime::Applications::Screens::SettingColorPicker::setCurrentTint(uint8_t tint) {
   if (tint > 9) {
     return;
   }
@@ -314,14 +314,14 @@ void Pinetime::Applications::Screens::SettingColor::setCurrentTint(uint8_t tint)
   }
 }
 
-void Pinetime::Applications::Screens::SettingColor::nextTint() {
+void Pinetime::Applications::Screens::SettingColorPicker::nextTint() {
   uint8_t currentTint = getCurrentTint();
   if (currentTint < 6) {
     setCurrentTint(currentTint + 1);
   }
 }
 
-void Pinetime::Applications::Screens::SettingColor::prevTint() {
+void Pinetime::Applications::Screens::SettingColorPicker::prevTint() {
   uint8_t currentTint = getCurrentTint();
   if (currentTint > 0) {
     setCurrentTint(currentTint - 1);

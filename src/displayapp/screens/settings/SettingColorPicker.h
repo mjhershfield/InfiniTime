@@ -10,10 +10,10 @@ namespace Pinetime {
   namespace Applications {
     namespace Screens {
 
-      class SettingColor : public Screen{
+      class SettingColorPicker : public Screen{
         public:
-          SettingColor(DisplayApp* app, Pinetime::Controllers::Settings &settingsController);
-          ~SettingColor() override;
+          SettingColorPicker(DisplayApp* app, Pinetime::Controllers::Settings &settingsController);
+          ~SettingColorPicker() override;
 
           void UpdateSelected(lv_obj_t *object, lv_event_t event);
          

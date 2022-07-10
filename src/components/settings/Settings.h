@@ -111,9 +111,17 @@ namespace Pinetime {
         return settings.PTS.ColorBG;
       };
 
-      ColorScheme getColorScheme() const;
+      uint8_t getThemeNumber() const;
 
-      void setColorScheme(ColorScheme newScheme);
+      void setThemeNumber(uint8_t num);
+
+      ColorScheme getTheme() const;
+
+      ColorScheme getTheme(uint8_t themeNumber) const;
+
+      void setTheme(ColorScheme newScheme);
+      
+      void setTheme(ColorScheme newScheme, uint8_t themeNumber);
 
       void SetAppMenu(uint8_t menu) {
         appMenu = menu;
@@ -234,7 +242,9 @@ namespace Pinetime {
     private:
       Pinetime::Controllers::FS& fs;
 
-      static constexpr uint32_t settingsVersion = 0x0004;
+      void updateTheme() const;
+
+      static constexpr uint32_t settingsVersion = 0x0006;
       struct SettingsData {
         uint32_t version = settingsVersion;
         uint32_t stepsGoal = 10000;
@@ -248,7 +258,8 @@ namespace Pinetime {
 
         PineTimeStyle PTS;
 
-        ColorScheme colorScheme;
+        ColorScheme themes[3];
+        uint8_t selectedTheme = 0;
 
         std::bitset<4> wakeUpMode {0};
         uint16_t shakeWakeThreshold = 150;

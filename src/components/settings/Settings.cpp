@@ -13,27 +13,52 @@ void Settings::Init() {
 
   // Load default settings from Flash
   LoadSettingsFromFile();
-
-  pt_update_theme(Pinetime::Applications::Convert(settings.colorScheme.primary, settings.colorScheme.primaryTint), 
-                  Pinetime::Applications::Convert(settings.colorScheme.secondary, settings.colorScheme.secondaryTint),
-                  Pinetime::Applications::Convert(settings.colorScheme.surface, settings.colorScheme.surfaceTint),
-                  Pinetime::Applications::Convert(settings.colorScheme.background, settings.colorScheme.backgroundTint));
+  updateTheme();
 
 }
 
-Settings::ColorScheme Settings::getColorScheme() const{
-  return settings.colorScheme;
+Settings::ColorScheme Settings::getTheme() const{
+  return settings.themes[settings.selectedTheme];
 }
 
-void Settings::setColorScheme(ColorScheme newScheme)
+Settings::ColorScheme Settings::getTheme(uint8_t themeNumber) const {
+  return settings.themes[themeNumber];
+}
+
+void Settings::setTheme(ColorScheme newScheme, uint8_t themeNumber)
 {
-  settings.colorScheme = newScheme;
-  settingsChanged = true;
-  
-  pt_update_theme(Pinetime::Applications::Convert(settings.colorScheme.primary, settings.colorScheme.primaryTint), 
-                  Pinetime::Applications::Convert(settings.colorScheme.secondary, settings.colorScheme.secondaryTint),
-                  Pinetime::Applications::Convert(settings.colorScheme.surface, settings.colorScheme.surfaceTint),
-                  Pinetime::Applications::Convert(settings.colorScheme.background, settings.colorScheme.backgroundTint));
+  if (themeNumber < 3) {
+    settings.themes[themeNumber] = newScheme;
+    settingsChanged = true;
+    updateTheme();
+  }
+}
+
+void Settings::setTheme(ColorScheme newScheme)
+{
+    settings.themes[settings.selectedTheme] = newScheme;
+    settingsChanged = true;
+    updateTheme();
+}
+
+uint8_t Settings::getThemeNumber() const {
+  return settings.selectedTheme;
+}
+
+void Settings::setThemeNumber(uint8_t num) {
+  if (num < 3) {
+    settings.selectedTheme = num;
+    settingsChanged = true;
+    updateTheme();
+  }
+}
+
+void Settings::updateTheme() const {
+  const ColorScheme& theme = getTheme();
+  pt_update_theme(Pinetime::Applications::Convert(theme.primary, theme.primaryTint), 
+                  Pinetime::Applications::Convert(theme.secondary, theme.secondaryTint),
+                  Pinetime::Applications::Convert(theme.surface, theme.surfaceTint),
+                  Pinetime::Applications::Convert(theme.background, theme.backgroundTint));
 }
 
 void Settings::SaveSettings() {
